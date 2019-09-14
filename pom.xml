@@ -72,10 +72,10 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.0.1</version>
                 <configuration>
-                    <configFile>src/main/resources/flyway.conf</configFile>
+                    <configFiles>src/main/resources/flyway.conf</configFiles>
                 </configuration>
             </plugin>
-            
+
         </plugins>
     </build>
 
