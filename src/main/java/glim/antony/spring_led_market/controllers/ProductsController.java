@@ -43,14 +43,15 @@ public class ProductsController {
         if (max != null)
             spec = spec.and(ProductSpecifications.priceLesserThanOrEq(max));
         if (pageNumber == null){
-            pageNumber = 0;
+            pageNumber = 1;
         }
 
-        Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber, 5));
+        Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber - 1, 5));
         model.addAttribute("page", page);
         model.addAttribute("word", word);
         model.addAttribute("min", min);
         model.addAttribute("max", max);
+        model.addAttribute("pageNumber", pageNumber);
         return "products";
     }
 }

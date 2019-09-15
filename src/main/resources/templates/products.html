@@ -19,6 +19,7 @@
     <h1 th:text="Фильтры" />
 
     <form th:action="@{/products}" method="GET">
+        <input hidden th:value="${pageNumber}" th:name="pageNumber" type="number">
         <input th:value="${word != null} ? ${word}" th:name="word" type="text" placeholder="Название">
         <input th:value="${min != null} ? ${min}" th:name="min" type="number" placeholder="Минимальная цена">
         <input th:value="${max != null} ? ${max}" th:name="max" type="number" placeholder="Максимальная цена">
@@ -60,8 +61,8 @@
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
             </li>
-            <li class="page-item" th:each="pageNumber: ${#numbers.sequence(0, page.getTotalPages() - 1, 1)}">
-                <a class="page-link" th:href="@{'/products?' + 'word=' + ${word} + '&min=' + ${min} + '&max=' + ${max} +  '&pageNumber=' + ${pageNumber}}" th:text="${pageNumber + 1}"></a>
+            <li class="page-item" th:each="pageNumber: ${#numbers.sequence(1, page.getTotalPages(), 1)}">
+                <a class="page-link" th:text="${pageNumber}" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber}}" ></a>
             </li>
             <li class="page-item">
                 <a class="page-link" href="#">&raquo;</a>
