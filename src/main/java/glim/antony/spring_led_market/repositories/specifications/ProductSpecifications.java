@@ -10,13 +10,13 @@ public class ProductSpecifications {
 
     public static Specification<Product> priceGreaterThanOrEq(double value) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
-            return criteriaBuilder.greaterThanOrEqualTo(root.get("price"), value);
+            return criteriaBuilder.greaterThanOrEqualTo(root.get("cost"), value);
         };
     }
 
     public static Specification<Product> priceLesserThanOrEq(double value) {
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> {
-            return criteriaBuilder.lessThanOrEqualTo(root.get("price"), value);
+            return criteriaBuilder.lessThanOrEqualTo(root.get("cost"), value);
         };
     }
 }
