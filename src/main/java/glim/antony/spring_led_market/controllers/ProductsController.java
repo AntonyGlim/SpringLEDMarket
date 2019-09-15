@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
@@ -32,8 +30,8 @@ public class ProductsController {
                                @RequestParam(name = "word", required = false) String word,
                                @RequestParam(name = "min", required = false) Integer min,
                                @RequestParam(name = "max", required = false) Integer max,
-                               @RequestParam(name = "pageNumber", required = false) Integer pageNumber
-    ){
+                               @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
+    {
         //TODO transfer Specification to service
         Specification<Product> spec = Specification.where(null);
         if (word != null)
@@ -55,6 +53,18 @@ public class ProductsController {
         return "products";
     }
 
-    //edit_product
+    @GetMapping("/edit/{id}")
+    public String showEditForm(Model model, @PathVariable(name = "id") Long id) {
+        Product product = productsService.findById(id);
+        model.addAttribute("product", product);
+        return "edit_product";
+    }
+
+    @PostMapping("/edit")
+    public String saveModifiedProduct(@ModelAttribute(name = "product") Product product) {
+        productsService.save(product);
+        return "redirect:/products";
+    }
+
 }
 
