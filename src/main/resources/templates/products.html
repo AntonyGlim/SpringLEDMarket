@@ -61,13 +61,13 @@
 <!--                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>-->
 <!--            </li>-->
             <li class="page-item">
-                <a class="page-link" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber == 1 ? 1 : pageNumber - 1}}">&laquo;</a>
+                <a class="page-link" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber == 1 ? 1 : pageNumber - 1} + ${filters}}">&laquo;</a>
             </li>
             <li class="page-item" th:classappend="${page.getNumber() + 1 == pageNumber ? 'active' : ''}" th:each="pageNumber: ${#numbers.sequence(1, page.getTotalPages(), 1)}">
-                <a class="page-link" th:text="${pageNumber}" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber}}" ></a>
+                <a class="page-link" th:text="${pageNumber}" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber} + ${filters}}"></a>
             </li>
             <li class="page-item">
-                <a class="page-link" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber == page.getTotalPages() ? page.getTotalPages() : pageNumber + 1}}">&raquo;</a>
+                <a class="page-link" th:href="@{'/products?' + 'pageNumber=' + ${pageNumber == page.getTotalPages() ? page.getTotalPages() : pageNumber + 1} + ${filters}}">&raquo;</a>
             </li>
 
         </ul>

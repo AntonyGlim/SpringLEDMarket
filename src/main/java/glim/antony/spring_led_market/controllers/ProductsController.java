@@ -34,23 +34,31 @@ public class ProductsController {
                                @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
     {
         //TODO transfer Specification to service
+        StringBuilder stringBuilder = new StringBuilder();
         Specification<Product> spec = Specification.where(null);
-        if (word != null)
+        if (word != null){
             spec = spec.and(ProductSpecifications.titleContains(word));
-        if (min != null)
+            stringBuilder.append("&word=" + word);
+        }
+        if (min != null) {
             spec = spec.and(ProductSpecifications.priceGreaterThanOrEq(min));
-        if (max != null)
+            stringBuilder.append("&min=" + min);
+        }
+        if (max != null){
             spec = spec.and(ProductSpecifications.priceLesserThanOrEq(max));
+            stringBuilder.append("&max=" + max);
+        }
         if (pageNumber == null){
             pageNumber = 1;
         }
-        
+
         Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber - 1, 5, Sort.Direction.ASC, "id"));
         model.addAttribute("page", page);
         model.addAttribute("word", word);
         model.addAttribute("min", min);
         model.addAttribute("max", max);
         model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("filters", stringBuilder.toString());
         return "products";
     }
 
