@@ -54,5 +54,7 @@ public class ProductsController {
         model.addAttribute("pageNumber", pageNumber);
         return "products";
     }
+
+    //edit_product
 }
 
