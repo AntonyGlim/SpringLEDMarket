@@ -55,14 +55,16 @@
         </tbody>
     </table>
 
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <!--<li class="page-item" th:if="${page.getNumber() > 0}">-->
-            <!--<a th:class="page-link" th:text="${i}" th:href="@{'/products?pageNumber=' + ${page.getNumber()}}">Previous</a>-->
-            <!--</li>-->
-
-            <li class="page-item" th:classappend="${page.getNumber() + 1 == i ? 'active' : ''}" th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
-                <a th:class="page-link" th:text="${i}" th:href="@{'/products?pageNumber=' + ${i} + ${filters}}"></a>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+            </li>
+            <li class="page-item" th:each="i: ${#numbers.sequence(1, page.getTotalPages(), 1)}">
+                <a class="page-link" href="#" th:text="${i}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
             </li>
         </ul>
     </nav>
