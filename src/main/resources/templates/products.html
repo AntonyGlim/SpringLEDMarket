@@ -24,6 +24,7 @@
         <input th:value="${max != null} ? ${max}" th:name="max" type="number" placeholder="Максимальная цена">
         <button type="submit" class="btn btn-primary">Фильтровать</button>
     </form>
+    <a type="button" class="btn btn-danger" th:href="@{'/products?word=&min=&max='}">Reset</a>
 
     <br>
 
