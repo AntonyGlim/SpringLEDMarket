@@ -4,6 +4,7 @@ import glim.antony.spring_led_market.entities.Product;
 import glim.antony.spring_led_market.repositories.specifications.ProductSpecifications;
 import glim.antony.spring_led_market.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,8 @@ public class ProductsController {
     public String showProducts(Model model,
                                @RequestParam(name = "word", required = false) String word,
                                @RequestParam(name = "min", required = false) Integer min,
-                               @RequestParam(name = "max", required = false) Integer max
+                               @RequestParam(name = "max", required = false) Integer max,
+                               @RequestParam(name = "pageNumber", required = false) Integer pageNumber
     ){
         //TODO transfer Specification to service
         Specification<Product> spec = Specification.where(null);
@@ -40,11 +42,15 @@ public class ProductsController {
             spec = spec.and(ProductSpecifications.priceGreaterThanOrEq(min));
         if (max != null)
             spec = spec.and(ProductSpecifications.priceLesserThanOrEq(max));
+        if (pageNumber == null){
+            pageNumber = 0;
+        }
 
-        model.addAttribute("page", productsService.findAllByPaginAndFiltering(spec, PageRequest.of(0, 5)));
+        Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber, 5));
+        model.addAttribute("page", page);
         model.addAttribute("word", word);
         model.addAttribute("min", min);
-        model.addAttribute("msx", max);
+        model.addAttribute("max", max);
         return "products";
     }
 }
