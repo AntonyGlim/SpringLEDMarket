@@ -6,6 +6,7 @@ import glim.antony.spring_led_market.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class ProductsController {
         if (pageNumber == null){
             pageNumber = 1;
         }
-
+//, Sort.Direction.ASC, "id"
         Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber - 1, 5));
         model.addAttribute("page", page);
         model.addAttribute("word", word);
@@ -63,6 +64,12 @@ public class ProductsController {
     @PostMapping("/edit")
     public String saveModifiedProduct(@ModelAttribute(name = "product") Product product) {
         productsService.save(product);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable(name = "id") Long id){
+        productsService.deleteById(id);
         return "redirect:/products";
     }
 
