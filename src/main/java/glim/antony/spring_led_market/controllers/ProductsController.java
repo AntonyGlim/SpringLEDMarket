@@ -42,6 +42,9 @@ public class ProductsController {
             spec = spec.and(ProductSpecifications.priceLesserThanOrEq(max));
 
         model.addAttribute("page", productsService.findAllByPaginAndFiltering(spec, PageRequest.of(0, 5)));
+        model.addAttribute("word", word);
+        model.addAttribute("min", min);
+        model.addAttribute("msx", max);
         return "products";
     }
 }
