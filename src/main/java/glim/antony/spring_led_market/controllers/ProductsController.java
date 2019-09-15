@@ -44,8 +44,8 @@ public class ProductsController {
         if (pageNumber == null){
             pageNumber = 1;
         }
-//, Sort.Direction.ASC, "id"
-        Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber - 1, 5));
+        
+        Page<Product> page = productsService.findAllByPaginAndFiltering(spec, PageRequest.of(pageNumber - 1, 5, Sort.Direction.ASC, "id"));
         model.addAttribute("page", page);
         model.addAttribute("word", word);
         model.addAttribute("min", min);
