@@ -46,6 +46,10 @@ public class ProductsRestController {
         return productsService.save(product);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productsService.deleteById(id);
+    }
 
 //    @PutMapping("/")
 //    public Product saveOrUpdate(@RequestBody Product newProduct, @PathVariable Long id){
