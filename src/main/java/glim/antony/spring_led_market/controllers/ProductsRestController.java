@@ -36,11 +36,13 @@ public class ProductsRestController {
     @PostMapping("/") //http://localhost:8189/market/rest/v1/products/
     @ResponseStatus(HttpStatus.CREATED)
     public Product addNewProduct(@RequestBody Product product){
+        product.setId(null); //защита
         return productsService.save(product);
     }
 
     @PutMapping("/")
     public Product updateProduct(@RequestBody Product product){
+//        if (product.getId() == null) throw new ...Exception("Product have no id"); //защита
         return productsService.save(product);
     }
 
