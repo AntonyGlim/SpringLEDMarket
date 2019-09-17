@@ -28,6 +28,14 @@ public class ProductsRestController {
     @GetMapping("/{id}") //http://localhost:8189/market/rest/v1/products/2
     @ResponseStatus(HttpStatus.OK)
     public Product showProductById(@PathVariable(name = "id") Long id){
-        return productsService.findById(id);
+        Product product = productsService.findById(id);
+//        if (product == null) throw new ResourceNotFoundException("Product not found. (id = " + id + ")");
+        return product;
+    }
+
+    @PostMapping("/") //http://localhost:8189/market/rest/v1/products/ 
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product addNewProduct(@RequestBody Product product){
+        return productsService.save(product);
     }
 }
