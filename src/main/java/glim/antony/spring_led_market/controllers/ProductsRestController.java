@@ -33,9 +33,28 @@ public class ProductsRestController {
         return product;
     }
 
-    @PostMapping("/") //http://localhost:8189/market/rest/v1/products/ 
+    @PostMapping("/") //http://localhost:8189/market/rest/v1/products/
     @ResponseStatus(HttpStatus.CREATED)
     public Product addNewProduct(@RequestBody Product product){
         return productsService.save(product);
     }
+
+    @PutMapping("/")
+    public Product updateProduct(@RequestBody Product product){
+        return productsService.save(product);
+    }
+
+
+//    @PutMapping("/")
+//    public Product saveOrUpdate(@RequestBody Product newProduct, @PathVariable Long id){
+//        Product product = productsService.findById(id);
+//        if (product != null){
+//            product.setTitle(newProduct.getTitle());
+//            product.setCost(newProduct.getCost());
+//        } else {
+//            product = newProduct;
+//            product.setId(id);
+//        }
+//        return productsService.save(product);
+//    }
 }
