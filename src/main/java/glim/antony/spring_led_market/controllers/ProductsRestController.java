@@ -1,6 +1,7 @@
 package glim.antony.spring_led_market.controllers;
 
 import glim.antony.spring_led_market.entities.Product;
+import glim.antony.spring_led_market.errors_hendlers.ResourceNotFoundException;
 import glim.antony.spring_led_market.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class ProductsRestController {
     @ResponseStatus(HttpStatus.OK)
     public Product showProductById(@PathVariable(name = "id") Long id){
         Product product = productsService.findById(id);
-//        if (product == null) throw new ResourceNotFoundException("Product not found. (id = " + id + ")");
+        if (product == null) throw new ResourceNotFoundException("Product not found. (id = " + id + ")");
         return product;
     }
 
@@ -46,21 +47,23 @@ public class ProductsRestController {
         return productsService.save(product);
     }
 
+    @PutMapping("/{id}")
+    public Product saveOrUpdate(@RequestBody Product newProduct, @PathVariable Long id){
+        Product product = productsService.findById(id);
+        if (product != null){
+            product.setTitle(newProduct.getTitle());
+            product.setCost(newProduct.getCost());
+        } else {
+            product = newProduct;
+            product.setId(id);
+        }
+        return productsService.save(product);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id){
         productsService.deleteById(id);
     }
 
-//    @PutMapping("/")
-//    public Product saveOrUpdate(@RequestBody Product newProduct, @PathVariable Long id){
-//        Product product = productsService.findById(id);
-//        if (product != null){
-//            product.setTitle(newProduct.getTitle());
-//            product.setCost(newProduct.getCost());
-//        } else {
-//            product = newProduct;
-//            product.setId(id);
-//        }
-//        return productsService.save(product);
-//    }
+
 }
