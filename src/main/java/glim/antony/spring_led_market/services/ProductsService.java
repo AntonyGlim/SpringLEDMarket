@@ -15,6 +15,11 @@ import java.util.List;
 @Service
 public class ProductsService {
 
+    String word;
+    Integer min;
+    Integer max;
+    Integer pageNumber;
+
     ProductsRepository productsRepository;
 
     @Autowired
@@ -22,8 +27,18 @@ public class ProductsService {
         this.productsRepository = productsRepository;
     }
 
-    public Page<Product> findAllByPaginAndFiltering(Specification<Product>  specification, Pageable pageable){
-        return productsRepository.findAll(specification, pageable);
+    public Page<Product> findAllByPaginAndFiltering(Pageable pageable){
+        Specification<Product> spec = Specification.where(null);
+        if (word != null){
+            spec = spec.and(ProductSpecifications.titleContains(word));
+        }
+        if (min != null) {
+            spec = spec.and(ProductSpecifications.priceGreaterThanOrEq(min));
+        }
+        if (max != null){
+            spec = spec.and(ProductSpecifications.priceLesserThanOrEq(max));
+        }
+        return productsRepository.findAll(spec, pageable);
     }
 
     public Product save(Product product){
@@ -42,5 +57,26 @@ public class ProductsService {
         List<Product> list = new ArrayList();
         productsRepository.findAll().forEach(list::add);
         return list;
+    }
+
+    public void setParams(String word, Integer min, Integer max, Integer pageNumber) {
+        this.word = word;
+        this.min = min;
+        this.max = max;
+        this.pageNumber = pageNumber;
+    }
+
+    public String getFilterStringForURL(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if (word != null){
+            stringBuilder.append("&word=" + word);
+        }
+        if (min != null) {
+            stringBuilder.append("&min=" + min);
+        }
+        if (max != null){
+            stringBuilder.append("&max=" + max);
+        }
+        return stringBuilder.toString();
     }
 }
