@@ -25,13 +25,9 @@
             <button type="submit" class="btn btn-primary">Фильтровать</button>
         </form>
         <a type="button" class="btn btn-danger" th:href="@{'/products'}">Reset</a>
+
         <form th:action="@{/products}" method="GET">
-            <select>
-                <option>2</option>
-                <option>5</option>
-                <option>10</option>
-                <option>20</option>
-            </select>
+            <input th:value="${productsOnPage != null} ? ${productsOnPage}" th:name="productsOnPage" type="number" placeholder="Страниц на листе">
             <button type="submit" class="btn btn-primary">Выбрать</button>
         </form>
 

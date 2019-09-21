@@ -27,17 +27,20 @@ public class ProductsController {
             @RequestParam(name = "word", required = false) String word,
             @RequestParam(name = "min", required = false) Integer min,
             @RequestParam(name = "max", required = false) Integer max,
+            @RequestParam(name = "productsOnPage", required = false) Integer productsOnPage,
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
     {
         productsService.setParams(word, min, max);
         if (pageNumber == null) pageNumber = 1;
+        if (productsOnPage == null) productsOnPage = 1;
         Page<Product> page =
                 productsService.findAllByPaginAndFiltering(
-                        PageRequest.of(pageNumber - 1, 5, Sort.Direction.ASC, "id"));
+                        PageRequest.of(pageNumber - 1, productsOnPage, Sort.Direction.ASC, "id"));
         model.addAttribute("page", page);
         model.addAttribute("word", word);
         model.addAttribute("min", min);
         model.addAttribute("max", max);
+        model.addAttribute("productsOnPage", productsOnPage);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("filters", productsService.getFilterStringForURL());
         return "products";
