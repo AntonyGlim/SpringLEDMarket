@@ -36,8 +36,8 @@ public class ProductsService {
     public String getFilterStringForURL(){
         StringBuilder stringBuilder = new StringBuilder();
         if (word != null) stringBuilder.append("&word=").append(word);
-        if (word != null) stringBuilder.append("&min=").append(min);
-        if (word != null) stringBuilder.append("&max=").append(max);
+        if (min != null) stringBuilder.append("&min=").append(min);
+        if (max != null) stringBuilder.append("&max=").append(max);
         if (productsOnPage != null) stringBuilder.append("&productsOnPage=").append(productsOnPage);
         return stringBuilder.toString();
     }
