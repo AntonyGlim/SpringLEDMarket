@@ -51,7 +51,7 @@
                 <td th:text="${product.title}"/>
                 <td th:text="${product.cost}"/>
                 <td>
-                    <a type="button" class="btn btn-success" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
+                    <a type="button" class="btn btn-success" th:href="@{'/products/edit?id=' + ${product.id}}">Edit</a>
                 </td>
                 <td>
                     <a type="button" class="btn btn-danger" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
@@ -59,6 +59,8 @@
             </tr>
             </tbody>
         </table>
+
+        <a type="button" class="btn btn-success" th:href="@{'/products/edit'}">add new product</a>
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

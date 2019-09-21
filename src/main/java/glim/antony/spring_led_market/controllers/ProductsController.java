@@ -46,9 +46,14 @@ public class ProductsController {
         return "products";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(Model model, @PathVariable(name = "id") Long id) {
-        Product product = productsService.findById(id);
+    @GetMapping("/edit")
+    public String showEditForm(Model model, @RequestParam(name = "id", required = false) Long id) {
+        Product product = null;
+        if (id != null){
+            product = productsService.findById(id);
+        } else {
+            product = new Product();
+        }
         model.addAttribute("product", product);
         return "edit_product";
     }
