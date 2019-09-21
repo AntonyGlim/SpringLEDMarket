@@ -31,7 +31,7 @@ public class ProductsController {
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
     {
         productsService.setParams(word, min, max, productsOnPage);
-        if (productsOnPage == null) productsOnPage = 1;
+        if (productsOnPage == null) productsOnPage = 5;
         if (pageNumber == null) pageNumber = 1;
         Page<Product> page =
                 productsService.findAllByPaginAndFiltering(
@@ -58,12 +58,14 @@ public class ProductsController {
         return "edit_product";
     }
 
+    //TODO save filters when add or edit product
     @PostMapping("/edit")
     public String saveModifiedProduct(@ModelAttribute(name = "product") Product product) {
         productsService.save(product);
         return "redirect:/products";
     }
 
+    //TODO save filters when add or edit product
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id){
         productsService.deleteById(id);
