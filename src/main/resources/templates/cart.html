@@ -53,7 +53,7 @@
                 <td th:text="${product.getValue()}"/>
                 <td>
                     <a type="button" class="btn btn-danger"
-                       th:href="@{'/products/delete/' + ${product.getKey().getId()}}">Delete</a>
+                       th:href="@{'/cart/delete/' + ${product.getKey().getId()}}">Delete</a>
                 </td>
             </tr>
             </tbody>

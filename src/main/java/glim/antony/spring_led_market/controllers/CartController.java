@@ -41,4 +41,11 @@ public class CartController {
         cart.addProduct(product);
         return "redirect:/cart";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProductFromCart(@PathVariable("id") Long id){
+        Product product = productsService.findById(id);
+        cart.deleteProduct(product);
+        return "redirect:/cart";
+    }
 }

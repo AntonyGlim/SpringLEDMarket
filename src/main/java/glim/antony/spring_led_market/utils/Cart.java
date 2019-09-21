@@ -26,12 +26,21 @@ public class Cart {
 
     public void addProduct(Product product){
         if (productAndCountMap.containsKey(product)){
-            Integer count = productAndCountMap.get(product);
-            productAndCountMap.put(product, count + 1);
+            productAndCountMap.put(product, productAndCountMap.get(product) + 1);
+            System.out.println("====== add + 1    Count = " + productAndCountMap.get(product));
         } else {
             productAndCountMap.put(product, 1);
+            System.out.println("====== add = 1    Count = " + productAndCountMap.get(product));
         }
     }
 
+    public void deleteProduct(Product product){
+        if (productAndCountMap.containsKey(product) && productAndCountMap.get(product) > 0){
+            productAndCountMap.put(product, productAndCountMap.get(product) - 1);
+        }
+        if (productAndCountMap.get(product) == 0){
+            productAndCountMap.remove(product);
+        }
+    }
 
 }
