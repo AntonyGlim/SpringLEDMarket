@@ -18,6 +18,7 @@ public class ProductsService {
     private String word;
     private Integer min;
     private Integer max;
+    private Integer productsOnPage;
     private ProductsRepository productsRepository;
 
     @Autowired
@@ -25,10 +26,11 @@ public class ProductsService {
         this.productsRepository = productsRepository;
     }
 
-    public void setParams(String word, Integer min, Integer max) {
+    public void setParams(String word, Integer min, Integer max, Integer productsOnPage) {
         this.word = word;
         this.min = min;
         this.max = max;
+        this.productsOnPage = productsOnPage;
     }
 
     public String getFilterStringForURL(){
@@ -36,6 +38,7 @@ public class ProductsService {
         if (word != null) stringBuilder.append("&word=").append(word);
         if (word != null) stringBuilder.append("&min=").append(min);
         if (word != null) stringBuilder.append("&max=").append(max);
+        if (productsOnPage != null) stringBuilder.append("&productsOnPage=").append(productsOnPage);
         return stringBuilder.toString();
     }
 

@@ -30,9 +30,9 @@ public class ProductsController {
             @RequestParam(name = "productsOnPage", required = false) Integer productsOnPage,
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber)
     {
-        productsService.setParams(word, min, max);
-        if (pageNumber == null) pageNumber = 1;
+        productsService.setParams(word, min, max, productsOnPage);
         if (productsOnPage == null) productsOnPage = 1;
+        if (pageNumber == null) pageNumber = 1;
         Page<Product> page =
                 productsService.findAllByPaginAndFiltering(
                         PageRequest.of(pageNumber - 1, productsOnPage, Sort.Direction.ASC, "id"));
