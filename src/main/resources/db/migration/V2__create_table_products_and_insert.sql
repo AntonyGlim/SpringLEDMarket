@@ -1,8 +1,3 @@
--- DROP SCHEMA IF EXISTS as_terra_led CASCADE;
--- CREATE SCHEMA as_terra_led;
---
--- SET search_path TO as_terra_led;
-
 DROP TABLE IF EXISTS products CASCADE;
 CREATE TABLE products (id bigserial, title varchar(255), cost integer, PRIMARY KEY (id));
 -- \d products;
