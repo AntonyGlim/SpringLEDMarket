@@ -4,7 +4,8 @@
 **0:46** добавить классы Role и User   
 **0:49** добавление таблиц в БД для Role и User  
 **0:58** подключение Мавен зависимостей Spring Security и его связи с thymeleaf    
-**0:59** создание дополнительных бинов для Spring Security configs.SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer   
+**0:59** создание дополнительных бинов для Spring Security configs.SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer и SecurityConfig extends WebSecurityConfigurerAdapter  
+**1:00** создание сервисов и репозиториев для User и Roles  
 **1:09** настройка безопасности (config)  
 **1:17** форма для логина (html)  
 **1:20** префикс sec и подключение его namespace -a  
