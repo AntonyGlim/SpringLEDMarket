@@ -43,7 +43,7 @@ public class ProductsController {
         model.addAttribute("productsOnPage", productsOnPage);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("filters", productsService.getFilterStringForURL());
-        return "products";
+        return "temp.products";
     }
 
     @GetMapping("/edit")
