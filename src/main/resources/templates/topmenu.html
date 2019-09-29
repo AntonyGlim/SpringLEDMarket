@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -22,6 +22,28 @@
                     </li>
                     <li class="nav-item" th:classappend="${activeTab == 'Cart' ? ' active' : ''}">
                         <a class="nav-link" th:href="@{/cart}">Cart</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item"
+                        th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+                    </li>
+
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form th:action="@{/logout}" method="POST">
+                            <input type="submit" class="btn btn-danger" value="Logout"/>
+                        </form>
+                    </li>
+
+                    <li sec:authorize="isAnonymous()" class="nav-item">
+                        <form class="align-middle" th:action="@{/authenticateTheUser}" method="POST">
+                            <div class="input-group-prepend">
+                                <input class="form-control" type="text" placeholder="Login" name="username"
+                                       aria-describedby="inputGroup-sizing-sm"style="margin-left: 10px;">
+                                <input class="form-control" type="text" placeholder="Password" name="password"
+                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                <button class="btn btn-warning btn-sm" style="margin-left: 10px;" type="submit">Log In</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>
