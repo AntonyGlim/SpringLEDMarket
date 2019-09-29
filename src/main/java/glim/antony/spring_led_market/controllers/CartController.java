@@ -35,11 +35,12 @@ public class CartController {
         return "cart";
     }
 
+    //TODO save filters and pagination
     @GetMapping("/add")
     public String addProductToCart(@RequestParam("id") Long id){
         Product product = productsService.findById(id);
         cart.addProduct(product);
-        return "redirect:/cart";
+        return "redirect:/shop";
     }
 
     @GetMapping("/delete/{id}")
