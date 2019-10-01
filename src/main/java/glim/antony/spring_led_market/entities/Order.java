@@ -1,0 +1,43 @@
+package glim.antony.spring_led_market.entities;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "orders")
+@Data
+@NoArgsConstructor
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items;
+
+    @Column(name = "price")
+    private BigDecimal price;
+
+    public Order(User user) {
+        this.user = user;
+        this.items = new ArrayList<>();
+        this.price = new BigDecimal(0);
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        items.add(orderItem);
+        orderItem.setOrder(this);
+        price = price.add(orderItem.getTotalPrice());
+    }
+}
