@@ -27,9 +27,12 @@ INSERT INTO products (title, price) VALUES
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders
 (
-    id      bigserial PRIMARY KEY,
-    user_id bigint,
-    price   numeric(8, 2),
+    id          bigserial PRIMARY KEY,
+    user_id     bigint,
+    price       numeric(8, 2),
+    status      varchar(255),
+    created_at  timestamp,
+    updated_at  timestamp,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
