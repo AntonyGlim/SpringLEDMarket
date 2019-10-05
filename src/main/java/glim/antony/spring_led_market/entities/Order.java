@@ -35,9 +35,9 @@ public class Order {
         this.price = new BigDecimal(0);
     }
 
-    public void addOrderItem(OrderItem orderItem){
-        items.add(orderItem);
-        orderItem.setOrder(this);
-        price = price.add(orderItem.getTotalPrice());
+    public void addItem(OrderItem item) {
+        items.add(item);
+        item.setOrder(this);
+        price = price.add(item.getTotalPrice());
     }
 }
