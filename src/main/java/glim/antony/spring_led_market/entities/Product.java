@@ -24,7 +24,7 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-    public Product(String title, BigDecimal price) {
+    public Product(Long id, String title, BigDecimal price) {
         this.title = title;
         this.price = price;
     }

@@ -17,4 +17,4 @@
 **1:20** OrderControllet добавление Principal   
 **1:24** создание OrderService   
 **1:39** вопросы  
-**1:41** тесты  
+**1:41** тесты (@MockBean, Mockito.verify, )  
