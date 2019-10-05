@@ -32,7 +32,7 @@ public class OrderController {
     @GetMapping("/create")
     public String createOrder(Principal principal){
         User user = userService.findByUsername(principal.getName());
-        orderService.createUser(user);
-        return "redirect:shop";
+        orderService.createOrder(user);
+        return "redirect:/shop";
     }
 }
