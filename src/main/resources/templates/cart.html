@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8"/>
 
-    <title>Корзина</title>
+    <title>Cart</title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,37 +16,29 @@
 <body>
 
 <div class="container">
+    <div th:replace="~{topmenu :: navigation(Cart)}" />
 
-    <div th:replace="~{topmenu :: navigation(Cart)}"/>
+    <h1>Корзина</h1>
 
-        <br>
-
-        <h1>Товары в корзине</h1>
-
-        <table class="table table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Название товара</th>
-                <th>Цена</th>
-                <th>Количество</th>
-                <th>Удалить</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product : ${productsInCart.entrySet()}">
-                <td th:text="${product.getKey().getId()}"/>
-                <td th:text="${product.getKey().getTitle()}"/>
-                <td th:text="${product.getKey().getCost() * product.getValue()}"/>
-                <td th:text="${product.getValue()}"/>
-                <td>
-                    <a type="button" class="btn btn-danger"
-                       th:href="@{'/cart/delete/' + ${product.getKey().getId()}}">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
+    <span th:if="${items.size() == 0}">Ваша корзина пуста</span>
+    <table th:if="${items.size() > 0}" class="table table-hover" >
+        <thead class="thead-dark">
+        <tr>
+            <th>Название товара</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.product.title}"/>
+            <td th:text="${item.quantity}"/>
+            <td th:text="${item.totalPrice}"/>
+        </tr>
+        </tbody>
+    </table>
+    <a th:if="${items.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/orders/create}" class="btn btn-warning">Оформить заказ</a>
+    <span th:if="${items.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа необходимо зайти в учетную запись</span>
 </div>
 
 </body>

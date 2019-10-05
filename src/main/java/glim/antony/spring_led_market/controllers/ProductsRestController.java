@@ -52,7 +52,7 @@ public class ProductsRestController {
         Product product = productsService.findById(id);
         if (product != null){
             product.setTitle(newProduct.getTitle());
-            product.setCost(newProduct.getCost());
+            product.setPrice(newProduct.getPrice());
         } else {
             product = newProduct;
             product.setId(id);

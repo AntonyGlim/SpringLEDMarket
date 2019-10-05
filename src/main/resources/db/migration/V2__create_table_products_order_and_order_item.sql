@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS products CASCADE;
-CREATE TABLE products (id bigserial, title varchar(255), cost integer, PRIMARY KEY (id));
+CREATE TABLE products (id bigserial, title varchar(255), price numeric(8, 2), PRIMARY KEY (id));
 -- \d products;
-INSERT INTO products (title, cost) VALUES
+INSERT INTO products (title, price) VALUES
 ('milk', 32),
 ('bread', 18),
 ('cheese', 99),
