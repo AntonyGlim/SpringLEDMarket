@@ -25,10 +25,10 @@ public class OrderService {
         this.cart = cart;
     }
 
-    public void createOrder(User user) {
+    public Order createOrder(User user) {
         Order order = new Order(user);
         cart.getItems().values().stream().forEach(i -> order.addItem(i));
         cart.clear();
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 }

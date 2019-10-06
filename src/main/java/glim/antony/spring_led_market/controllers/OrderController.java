@@ -4,6 +4,7 @@ import glim.antony.spring_led_market.entities.Order;
 import glim.antony.spring_led_market.entities.User;
 import glim.antony.spring_led_market.services.OrderService;
 import glim.antony.spring_led_market.services.UserService;
+import glim.antony.spring_led_market.services.email.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,8 @@ import java.security.Principal;
 public class OrderController {
 
     private OrderService orderService;
-
     private UserService userService;
+    private MailService mailService;
 
     @Autowired
     public void setOrderService(OrderService orderService) {
@@ -29,10 +30,16 @@ public class OrderController {
         this.userService = userService;
     }
 
+    @Autowired
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
     @GetMapping("/create")
     public String createOrder(Principal principal){
         User user = userService.findByUsername(principal.getName());
-        orderService.createOrder(user);
+        Order order = orderService.createOrder(user);
+        mailService.sendOrderMail(order);
         return "redirect:/shop";
     }
 }
