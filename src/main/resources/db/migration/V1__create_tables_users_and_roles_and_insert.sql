@@ -25,6 +25,7 @@ CREATE TABLE users
     phone      VARCHAR(15) NOT NULL,
     PRIMARY KEY (id)
 );
+-- SELECT * FROM users;
 
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles
@@ -33,6 +34,7 @@ CREATE TABLE roles
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
+-- SELECT * FROM roles;
 
 DROP TABLE IF EXISTS users_roles;
 CREATE TABLE users_roles
@@ -45,6 +47,7 @@ CREATE TABLE users_roles
     FOREIGN KEY (role_id)
         REFERENCES roles (id)
 );
+-- SELECT * FROM users_roles;
 
 INSERT INTO roles (name)
 VALUES ('ROLE_USER'),
