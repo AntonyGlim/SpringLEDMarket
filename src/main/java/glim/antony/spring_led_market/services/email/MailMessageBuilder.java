@@ -22,4 +22,11 @@ public class MailMessageBuilder {
         context.setVariable("order", order); //context здесь что-то вроде model
         return templateEngine.process("order-mail", context);
     }
+
+    public String buildOrderEmailWithPassword(Order order, String password) {
+        Context context = new Context();
+        context.setVariable("order", order); //context здесь что-то вроде model
+        context.setVariable("password", password); //context здесь что-то вроде model
+        return templateEngine.process("order-mail", context);
+    }
 }

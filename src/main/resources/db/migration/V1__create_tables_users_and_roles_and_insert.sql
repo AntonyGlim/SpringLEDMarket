@@ -17,12 +17,12 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
     id         bigserial,
-    username   varchar(50) NOT NULL,
+    username   varchar(50),
     password   varchar(80) NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
-    last_name  VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50),
+    last_name  VARCHAR(50),
     email      VARCHAR(50) NOT NULL,
-    phone      VARCHAR(15) NOT NULL,
+    phone      VARCHAR(15),
     PRIMARY KEY (id)
 );
 -- SELECT * FROM users;

@@ -38,7 +38,13 @@
         </tbody>
     </table>
     <a th:if="${items.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/orders/create}" class="btn btn-warning">Оформить заказ</a>
-    <span th:if="${items.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа необходимо зайти в учетную запись</span>
+    <form th:if="${items.size() > 0}" sec:authorize="isAnonymous()" class="align-middle" th:action="@{/orders/create/unregistered}" method="POST">
+        <div class="input-group-prepend">
+            <input class="form-control" type="text" placeholder="Enter your email..." name="email"
+                   aria-describedby="inputGroup-sizing-sm"style="margin-left: 10px;">
+            <button class="btn btn-warning btn-sm" style="margin-left: 10px;" type="submit">Оформить заказ</button>
+        </div>
+    </form>
 </div>
 
 </body>

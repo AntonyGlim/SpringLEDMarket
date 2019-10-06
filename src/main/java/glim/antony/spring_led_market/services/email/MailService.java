@@ -49,4 +49,8 @@ public class MailService {
     public void sendOrderMail(Order order) {
         sendMail(order.getUser().getEmail(), String.format("Заказ %d%n отправлен в обработку", order.getId()), messageBuilder.buildOrderEmail(order));
     }
+
+    public void sendOrderMailWithPassword(Order order, String password) {
+        sendMail(order.getUser().getEmail(), String.format("Заказ %d%n отправлен в обработку", order.getId()), messageBuilder.buildOrderEmailWithPassword(order, password));
+    }
 }

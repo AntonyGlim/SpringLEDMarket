@@ -10,7 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +46,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByUsername(username);
     }
 
+    @Override
+    @Transactional
+    public User findByEmail(String email) {
+        return userRepository.findOneByEmail(email);
+    }
+
     /**Связь нашего пользователя с пользователем Spring*/
     @Override
     @Transactional
@@ -79,4 +84,18 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Arrays.asList(roleRepository.findOneByName("ROLE_CUSTOMER")));
         return userRepository.save(user);
     }
+
+    @Override
+    @org.springframework.transaction.annotation.Transactional
+    public User simpleSave(User user) {
+        if (findByEmail(user.getEmail()) != null) {
+            throw new RuntimeException("User with username " + user.getEmail() + " is already exist");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEmail(user.getEmail());
+        user.setRoles(Arrays.asList(roleRepository.findOneByName("ROLE_CUSTOMER")));
+        return userRepository.save(user);
+    }
+
+
 }
