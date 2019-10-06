@@ -60,10 +60,10 @@ public class ProductsRestController {
         return productsService.save(product);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id){
-        productsService.deleteById(id);
-    }
+//    @DeleteMapping("/{id}")
+//    public void deleteProduct(@PathVariable Long id){
+//        productsService.deleteById(id);
+//    }
 
 
 }
