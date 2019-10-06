@@ -47,6 +47,10 @@
                             </div>
                         </form>
                     </li>
+
+                    <li sec:authorize="isAnonymous()" class="nav-item">
+                        <a class="nav-link" th:href="@{/register}">Зарегистрироваться</a>
+                    </li>
                 </ul>
             </div>
         </nav>

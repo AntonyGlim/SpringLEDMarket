@@ -4,6 +4,7 @@ import glim.antony.spring_led_market.entities.Role;
 import glim.antony.spring_led_market.entities.User;
 import glim.antony.spring_led_market.repositories.RoleRepository;
 import glim.antony.spring_led_market.repositories.UserRepository;
+import glim.antony.spring_led_market.utils.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -59,5 +61,22 @@ public class UserServiceImpl implements UserService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    @Override
+    @org.springframework.transaction.annotation.Transactional
+    public User save(SystemUser systemUser) {
+        User user = new User();
+        if (findByUsername(systemUser.getUsername()) != null) {
+            throw new RuntimeException("User with username " + systemUser.getUsername() + " is already exist");
+        }
+        user.setUsername(systemUser.getUsername());
+        user.setPassword(passwordEncoder.encode(systemUser.getPassword()));
+        user.setFirstName(systemUser.getFirstName());
+        user.setLastName(systemUser.getLastName());
+        user.setEmail(systemUser.getEmail());
+        user.setPhone(systemUser.getPhone());
+        user.setRoles(Arrays.asList(roleRepository.findOneByName("ROLE_CUSTOMER")));
+        return userRepository.save(user);
     }
 }
