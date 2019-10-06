@@ -52,7 +52,7 @@ public class ProductsRestController {
         Product product = productsService.findById(id);
         if (product != null){
             product.setTitle(newProduct.getTitle());
-            product.setCost(newProduct.getCost());
+            product.setPrice(newProduct.getPrice());
         } else {
             product = newProduct;
             product.setId(id);
@@ -60,10 +60,10 @@ public class ProductsRestController {
         return productsService.save(product);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id){
-        productsService.deleteById(id);
-    }
+//    @DeleteMapping("/{id}")
+//    public void deleteProduct(@PathVariable Long id){
+//        productsService.deleteById(id);
+//    }
 
 
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Cart</title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div th:replace="~{topmenu :: navigation(Cart)}" />
+
+    <h1>Корзина</h1>
+
+    <span th:if="${items.size() == 0}">Ваша корзина пуста</span>
+    <table th:if="${items.size() > 0}" class="table table-hover" >
+        <thead class="thead-dark">
+        <tr>
+            <th>Название товара</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.product.title}"/>
+            <td th:text="${item.quantity}"/>
+            <td th:text="${item.totalPrice}"/>
+        </tr>
+        </tbody>
+    </table>
+    <a th:if="${items.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/orders/create}" class="btn btn-warning">Оформить заказ</a>
+    <form th:if="${items.size() > 0}" sec:authorize="isAnonymous()" class="align-middle" th:action="@{/orders/create/unregistered}" method="POST">
+        <div class="input-group-prepend">
+            <input class="form-control" type="text" placeholder="Enter your email..." name="email"
+                   aria-describedby="inputGroup-sizing-sm"style="margin-left: 10px;">
+            <button class="btn btn-warning btn-sm" style="margin-left: 10px;" type="submit">Оформить заказ</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

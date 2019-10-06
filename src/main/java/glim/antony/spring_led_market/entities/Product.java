@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -20,6 +21,11 @@ public class Product implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "cost")
-    private Integer cost;
+    @Column(name = "price")
+    private BigDecimal price;
+
+    public Product(Long id, String title, BigDecimal price) {
+        this.title = title;
+        this.price = price;
+    }
 }
