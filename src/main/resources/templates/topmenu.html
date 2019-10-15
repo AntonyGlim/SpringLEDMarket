@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
     <title>Title</title>
 
     <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
@@ -17,13 +20,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item" th:classappend="${activeTab == 'Home' ? ' active' : ''}">
-                        <a class="nav-link" th:href="@{/}">Home</a>
+                        <a class="nav-link" th:href="@{/}" th:text="#{topmenu.home}">Home</a>
                     </li>
                     <li class="nav-item" th:classappend="${activeTab == 'Shop' ? ' active' : ''}">
-                        <a class="nav-link" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link" th:href="@{/shop}" th:text="#{topmenu.shop}">Shop</a>
                     </li>
                     <li class="nav-item" th:classappend="${activeTab == 'Cart' ? ' active' : ''}">
-                        <a class="nav-link" th:href="@{/cart}">Cart</a>
+                        <a class="nav-link" th:href="@{/cart}" th:text="#{topmenu.cart}">Cart</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')" class="nav-item"
                         th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
@@ -51,6 +54,14 @@
                     <li sec:authorize="isAnonymous()" class="nav-item">
                         <a class="nav-link" th:href="@{/register}">Зарегистрироваться</a>
                     </li>
+
+                    <div class="dropdown" style="margin-left: 10px;">
+                        <button class="btn btn-outline-secondary dropdown-toggle" th:text="#{topmenu.lang}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/?lang=ru}">РУС</a>
+                            <a class="dropdown-item" th:href="@{/?lang=en}">ENG</a>
+                        </div>
+                    </div>
                 </ul>
             </div>
         </nav>
