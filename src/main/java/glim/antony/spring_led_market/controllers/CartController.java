@@ -1,7 +1,9 @@
 package glim.antony.spring_led_market.controllers;
 
 import glim.antony.spring_led_market.entities.Product;
+import glim.antony.spring_led_market.entities.User;
 import glim.antony.spring_led_market.services.ProductsService;
+import glim.antony.spring_led_market.services.UserService;
 import glim.antony.spring_led_market.utils.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
 
     private ProductsService productsService;
-
+    private UserService userService;
     private Cart cart;
 
     @Autowired
@@ -28,12 +31,23 @@ public class CartController {
     }
 
     @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
     public void setCart(Cart cart) {
         this.cart = cart;
     }
 
     @GetMapping("")
-    public String showCart(Model model){
+    public String show(Model model, Principal principal){
+        if (principal != null){ //значит пользователь существует
+            System.out.println(principal.getName());
+            User user = userService.findByPhone(principal.getName());
+            model.addAttribute("phone", user.getPhone());
+            model.addAttribute("firstName", user.getFirstName());
+        }
         model.addAttribute("items", cart.getItems().values());
         return "cart";
     }

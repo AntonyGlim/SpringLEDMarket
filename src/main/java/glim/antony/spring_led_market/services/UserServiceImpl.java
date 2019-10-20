@@ -63,10 +63,10 @@ public class UserServiceImpl implements UserService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
-//    @Override
-//    public boolean isUserExist(String phone) {
-//        return userRepository.existsByPhone(phone);
-//    }
+    @Override
+    public boolean isUserExist(String phone) {
+        return userRepository.existsByPhone(phone);
+    }
 
     @Override
     @Transactional

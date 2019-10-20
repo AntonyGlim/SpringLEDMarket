@@ -6,6 +6,7 @@ import glim.antony.spring_led_market.utils.SystemUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    User findByPhone(String username);
+    User findByPhone(String phone);
+    boolean isUserExist(String phone);
     User save(SystemUser systemUser);
 }
