@@ -37,7 +37,7 @@ public class OrderController {
 
     @GetMapping("/create")
     public String createOrder(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByPhone(principal.getName());
         Order order = orderService.createOrder(user);
         mailService.sendOrderMail(order);
         return "redirect:/shop";

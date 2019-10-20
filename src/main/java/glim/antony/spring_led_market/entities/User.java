@@ -18,8 +18,8 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "password")
     private String password;
@@ -33,9 +33,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone")
-    private String phone;
-
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
@@ -45,33 +42,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    public User(String username, String password, String first_name, String last_name, String email) {
-        this.username = username;
+    public User(String phone, String password, String firstName, String lastName, String email) {
+        this.phone = phone;
         this.password = password;
-        this.firstName = first_name;
-        this.lastName = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-    }
-
-    public User(String username, String password, String first_name, String last_name, String email, Collection<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.email = email;
-        this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", roles=" + roles +
-                '}';
     }
 }

@@ -29,13 +29,13 @@ public class UserServiceTest {
 
     @Test
     public void findOneUserTest() {
-        Mockito.doReturn(new User("firstUser", "123123", "firstName", "lastName", "em@em.com"))
+        Mockito.doReturn(new User("22222222", "22222222", "firstName", "lastName", "em@em.com"))
                 .when(userRepository)
-                .findOneByUsername("firstUser");
-        User user = userService.findByUsername("firstUser");
+                .findOneByPhone("22222222");
+        User user = userService.findByPhone("22222222");
         Assert.assertNotNull(user);
-        Mockito.verify(userRepository, Mockito.times(1)).findOneByUsername(ArgumentMatchers.eq("firstUser"));
-        Mockito.verify(userRepository, Mockito.times(1)).findOneByUsername(ArgumentMatchers.anyString());
+        Mockito.verify(userRepository, Mockito.times(1)).findOneByPhone(ArgumentMatchers.eq("22222222"));
+        Mockito.verify(userRepository, Mockito.times(1)).findOneByPhone(ArgumentMatchers.anyString());
 
     }
 }
