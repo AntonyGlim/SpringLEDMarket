@@ -43,6 +43,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
+                <th>Картинка</th>
                 <th>Название товара</th>
                 <th>Цена</th>
                 <th>Добавить в корзину</th>
@@ -51,6 +52,9 @@
             <tbody>
             <tr th:each="product : ${page.getContent()}">
                 <td th:text="${product.id}"/>
+                <td>
+                    <img class="table_image" th:src="@{'/image_repository/products/' + ${product.id} + '/title.png'}">
+                </td>
                 <td th:text="${product.title}"/>
                 <td th:text="${product.price}"/>
                 <td>
