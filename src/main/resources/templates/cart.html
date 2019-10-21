@@ -68,6 +68,22 @@
         </form>
     </div>
 
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=RUB"></script>
+
+    <script>
+        paypal.Buttons({
+            style: {
+                layout:  'vertical',
+                color:   'blue',
+                shape:   'rect',
+                label:   'paypal'
+            }
+        }).render('#paypal-button-container');
+    </script>
 </div>
 
 </body>
