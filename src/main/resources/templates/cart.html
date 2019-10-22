@@ -21,22 +21,24 @@
     <h1>Корзина</h1>
 
     <span th:if="${items.size() == 0}">Ваша корзина пуста</span>
-    <table th:if="${items.size() > 0}" class="table table-hover" >
-        <thead class="thead-dark">
-        <tr>
-            <th>Название товара</th>
-            <th>Количество</th>
-            <th>Цена</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${items}">
-            <td th:text="${item.product.title}"/>
-            <td th:text="${item.quantity}"/>
-            <td th:text="${item.totalPrice}"/>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${items.size() > 0}" >
+        <table class="table table-hover" >
+            <thead class="thead-dark">
+            <tr>
+                <th>Название товара</th>
+                <th>Количество</th>
+                <th>Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.product.title}"/>
+                <td th:text="${item.quantity}"/>
+                <td th:text="${item.totalPrice}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div th:if="${items.size() > 0}">
         <form th:action="@{/orders/create}" method="GET" class="form-horizontal">
@@ -66,24 +68,27 @@
                 </div>
             </div>
         </form>
+
+
+        <!-- Set up a container element for the button -->
+        <div id="paypal-button-container"></div>
+
+        <!-- Include the PayPal JavaScript SDK -->
+        <script src="https://www.glim.antony.spring_led_market.paypal.com/sdk/js?client-id=sb&currency=RUB"></script>
+
+        <script>
+            paypal.Buttons({
+                style: {
+                    layout:  'vertical',
+                    color:   'blue',
+                    shape:   'rect',
+                    label:   'paypal'
+                }
+            }).render('#paypal-button-container');
+        </script>
     </div>
 
-    <!-- Set up a container element for the button -->
-    <div id="paypal-button-container"></div>
 
-    <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=RUB"></script>
-
-    <script>
-        paypal.Buttons({
-            style: {
-                layout:  'vertical',
-                color:   'blue',
-                shape:   'rect',
-                label:   'paypal'
-            }
-        }).render('#paypal-button-container');
-    </script>
 </div>
 
 </body>

@@ -1,4 +1,4 @@
-package paypal;
+package glim.antony.spring_led_market.paypal;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -25,12 +25,12 @@ public class PayPalController {
     @Value("${paypal.client.secret}")
     private String clientSecret;
 
-    @Value("${paypal.mode}")
-    private String mode;
+//    @Value("${paypal.mode}")
+    private String mode = "sandbox";
 
     private APIContext apiContext = new APIContext(clientId, clientSecret, mode);
 
-    @RequestMapping("/b")
+    @GetMapping("/b")
     public String myBuy() {
         return "index";
     }
@@ -38,9 +38,6 @@ public class PayPalController {
     @RequestMapping("/buy")
     public String buy(HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
-            System.out.println(clientId);
-            System.out.println(clientSecret);
-            System.out.println(mode);
             Payer payer = new Payer();
             payer.setPaymentMethod("paypal");
             RedirectUrls redirectUrls = new RedirectUrls();
