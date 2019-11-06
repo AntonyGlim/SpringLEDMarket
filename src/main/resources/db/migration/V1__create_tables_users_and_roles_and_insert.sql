@@ -56,6 +56,7 @@ VALUES ('ROLE_USER'),
 
 INSERT INTO users (phone, password, first_name, last_name, email)
 VALUES ('88888888', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'Admin', 'Admin', 'admin@gmail.com');
+-- password 100
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES (1, 1),
