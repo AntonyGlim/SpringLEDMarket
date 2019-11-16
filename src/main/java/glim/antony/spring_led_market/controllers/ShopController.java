@@ -9,10 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -50,4 +47,14 @@ public class ShopController {
         model.addAttribute("page", page);
         return "shop";
     }
+
+    @GetMapping("/{id}")
+    public String showSimpleProductPage(Model model, @PathVariable Long id){
+        Product product = productsService.findById(id);
+//        Product product = new Product();
+//        product.setTitle("Test");
+        model.addAttribute(product);
+        return "simple_product";
+    }
+
 }

@@ -47,6 +47,7 @@
                 <th>Название товара</th>
                 <th>Цена</th>
                 <th>Добавить в корзину</th>
+                <th th:text="#{products.details}"></th>
             </tr>
             </thead>
             <tbody>
@@ -59,6 +60,9 @@
                 <td th:text="${product.price}"/>
                 <td>
                     <a type="button" class="btn btn-success" th:href="@{'/cart/add?id=' + ${product.id}}">add to cart</a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-info" th:href="@{'/shop/' + ${product.id}}" th:text="#{products.details}"></a>
                 </td>
             </tr>
             </tbody>
