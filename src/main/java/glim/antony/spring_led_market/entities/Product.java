@@ -26,6 +26,10 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProductImage> images;

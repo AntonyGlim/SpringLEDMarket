@@ -1,6 +1,7 @@
 package glim.antony.spring_led_market.controllers;
 
 import glim.antony.spring_led_market.entities.Product;
+import glim.antony.spring_led_market.services.CategoryService;
 import glim.antony.spring_led_market.services.ProductsService;
 import glim.antony.spring_led_market.utils.ProductsFilter;
 import glim.antony.spring_led_market.utils.Utils;
@@ -23,10 +24,16 @@ import java.util.Optional;
 public class ShopController {
 
     private ProductsService productsService;
+    private CategoryService categoryService;
 
     @Autowired
     public void setProductsService(ProductsService productsService) {
         this.productsService = productsService;
+    }
+
+    @Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping()
@@ -48,6 +55,7 @@ public class ShopController {
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("filters", productsFilter.getFiltersString());
         model.addAttribute("page", page);
+        model.addAttribute("categories", categoryService.findAll());
         return "shop";
     }
 

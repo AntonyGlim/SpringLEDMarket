@@ -1,17 +1,27 @@
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+  id                    serial,
+  name                  VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
+-- \d categories;
+INSERT INTO categories (name) VALUES ('RGB'), ('mono');
+-- SELECT * FROM categories;
+
 DROP TABLE IF EXISTS products CASCADE;
-CREATE TABLE products (id bigserial, title varchar(255), price numeric(8, 2), PRIMARY KEY (id));
+CREATE TABLE products (id bigserial PRIMARY KEY, title varchar(255), price numeric(8, 2), category_id int, FOREIGN KEY (category_id) REFERENCES categories(id));
 -- \d products;
-INSERT INTO products (title, price) VALUES
-('АС-Аврора-16 (mono)', 11250),
-('АС-Аврора-32 (mono)', 12250),
-('АС-Аврора-50 (mono)', 13250),
-('АС-Аврора-65 (mono)', 14250),
-('АС-Аврора-16 (RGB)', 15500),
-('АС-Аврора-32 (RGB)', 16500),
-('АС-Аврора-50 (RGB)', 17500),
-('АС-Аврора-65 (RGB)', 18500),
-('АС-Спектрум-105', 19500),
-('АС-Спектрум-210', 20500);
+INSERT INTO products (title, price, category_id) VALUES
+('АС-Аврора-16 (mono)', 11250, 2),
+('АС-Аврора-32 (mono)', 12250, 2),
+('АС-Аврора-50 (mono)', 13250, 2),
+('АС-Аврора-65 (mono)', 14250, 2),
+('АС-Аврора-16 (RGB)', 15500, 1),
+('АС-Аврора-32 (RGB)', 16500, 1),
+('АС-Аврора-50 (RGB)', 17500, 1),
+('АС-Аврора-65 (RGB)', 18500, 1),
+('АС-Спектрум-105', 19500, 1),
+('АС-Спектрум-210', 20500, 1);
 -- SELECT * FROM products;
 
 DROP TABLE IF EXISTS orders;
