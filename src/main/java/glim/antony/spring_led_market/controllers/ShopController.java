@@ -3,6 +3,7 @@ package glim.antony.spring_led_market.controllers;
 import glim.antony.spring_led_market.entities.Product;
 import glim.antony.spring_led_market.services.ProductsService;
 import glim.antony.spring_led_market.utils.ProductsFilter;
+import glim.antony.spring_led_market.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @Controller
@@ -35,7 +37,7 @@ public class ShopController {
             @CookieValue(name = "productsOnPage", required = false) Integer productsOnPage,
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber
             // @RequestParam Map<String, String> params
-    ){
+    ) {
         ProductsFilter productsFilter = new ProductsFilter(request);
         if (productsOnPage == null) {
             productsOnPage = 5;
@@ -50,14 +52,23 @@ public class ShopController {
     }
 
     @GetMapping("/{id}")
-    public String showSimpleProductPage(Model model, @PathVariable Long id){
+    public String showSimpleProductPage(
+            Model model,
+            @PathVariable(name = "id") Long id,
+            @CookieValue(value = "lastProducts", required = false) String lastProducts,
+            HttpServletResponse response
+    ) {
         Product product = productsService.findById(id);
+        if (lastProducts == null) lastProducts = String.valueOf(product.getId());
+        else lastProducts = lastProducts + "q" + product.getId();
+        LinkedList<String> lastProductsList = Utils.cutVisitedProductsHistory(lastProducts, 5);
+        response.addCookie(new Cookie("lastProducts", Utils.listToString(lastProductsList)));
         model.addAttribute(product);
         return "simple_product";
     }
 
     @GetMapping("/back")
-    public String returnPreviousPage(HttpServletRequest request){
+    public String returnPreviousPage(HttpServletRequest request) {
         return "redirect:/shop";
     }
 

@@ -1,5 +1,6 @@
 package glim.antony.spring_led_market.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,8 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ProductImage> images;
 
     public Product(Long id, String title, BigDecimal price) {
