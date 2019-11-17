@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/shop")
@@ -51,10 +52,13 @@ public class ShopController {
     @GetMapping("/{id}")
     public String showSimpleProductPage(Model model, @PathVariable Long id){
         Product product = productsService.findById(id);
-//        Product product = new Product();
-//        product.setTitle("Test");
         model.addAttribute(product);
         return "simple_product";
+    }
+
+    @GetMapping("/back")
+    public String returnPreviousPage(HttpServletRequest request){
+        return "redirect:/shop";
     }
 
 }
