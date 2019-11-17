@@ -1,5 +1,8 @@
 package glim.antony.spring_led_market.utils;
 
+import glim.antony.spring_led_market.entities.Product;
+import glim.antony.spring_led_market.services.ProductsService;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +16,7 @@ public class Utils {
      * then shift products and return string with @maxCount
      * elements
      */
-    public static LinkedList cutVisitedProductsHistory(String lastProducts, int maxSize){
+    public static LinkedList<String> cutVisitedProductsHistory(String lastProducts, int maxSize){
         LinkedList list = new LinkedList(Arrays.asList(lastProducts.split("q")));
         if (list.size() > maxSize) {
             list.removeFirst();

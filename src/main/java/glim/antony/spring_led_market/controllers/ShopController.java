@@ -61,9 +61,12 @@ public class ShopController {
         Product product = productsService.findById(id);
         if (lastProducts == null) lastProducts = String.valueOf(product.getId());
         else lastProducts = lastProducts + "q" + product.getId();
-        LinkedList<String> lastProductsList = Utils.cutVisitedProductsHistory(lastProducts, 5);
-        response.addCookie(new Cookie("lastProducts", Utils.listToString(lastProductsList)));
-        model.addAttribute(product);
+        LinkedList<String> lastProductsIndexesList = Utils.cutVisitedProductsHistory(lastProducts, 5);
+        response.addCookie(new Cookie("lastProducts", Utils.listToString(lastProductsIndexesList)));
+        LinkedList<Product> productsList = new LinkedList<>();
+        for (String s : lastProductsIndexesList) productsList.add(productsService.findById(Long.parseLong(s)));
+        model.addAttribute("product", product);
+        model.addAttribute("productsList", productsList);
         return "simple_product";
     }
 
