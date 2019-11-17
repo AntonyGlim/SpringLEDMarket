@@ -59,12 +59,17 @@ public class ShopController {
             HttpServletResponse response
     ) {
         Product product = productsService.findById(id);
+
         if (lastProducts == null) lastProducts = String.valueOf(product.getId());
         else lastProducts = lastProducts + "q" + product.getId();
+
+        //TODO гораздо лучше это реализовал Фисунов в 28 1:19
         LinkedList<String> lastProductsIndexesList = Utils.cutVisitedProductsHistory(lastProducts, 5);
         response.addCookie(new Cookie("lastProducts", Utils.listToString(lastProductsIndexesList)));
         LinkedList<Product> productsList = new LinkedList<>();
+
         for (String s : lastProductsIndexesList) productsList.add(productsService.findById(Long.parseLong(s)));
+
         model.addAttribute("product", product);
         model.addAttribute("productsList", productsList);
         return "simple_product";

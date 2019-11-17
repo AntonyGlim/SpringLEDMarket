@@ -49,36 +49,38 @@
 
     <a type="button" class="btn btn-success" th:href="@{'/shop/back'}" th:text="#{page.back}"></a>
 
-    <h2>Последние посещенные</h2>
-<!--    lastProductsList-->
-    <table class="table table-hover">
-        <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Картинка</th>
-            <th>Название товара</th>
-            <th>Цена</th>
-            <th>Добавить в корзину</th>
-            <th th:text="#{products.details}"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="prod : ${productsList}">
-            <td th:text="${prod.id}"/>
-            <td>
-                <img class="table_image" th:src="@{'/image_repository/products/' + ${prod.id} + '/title.png'}">
-            </td>
-            <td th:text="${prod.title}"/>
-            <td th:text="${prod.price}"/>
-            <td>
-                <a type="button" class="btn btn-success" th:href="@{'/cart/add?id=' + ${prod.id}}">add to cart</a>
-            </td>
-            <td>
-                <a type="button" class="btn btn-info" th:href="@{'/shop/' + ${prod.id}}" th:text="#{products.details}"></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${productsList.size() > 0}">
+        <h2>Последние посещенные</h2>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Картинка</th>
+                <th>Название товара</th>
+                <th>Цена</th>
+                <th>Добавить в корзину</th>
+                <th th:text="#{products.details}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prod : ${productsList}">
+                <td th:text="${prod.id}"/>
+                <td>
+                    <img class="table_image" th:src="@{'/image_repository/products/' + ${prod.id} + '/title.png'}">
+                </td>
+                <td th:text="${prod.title}"/>
+                <td th:text="${prod.price}"/>
+                <td>
+                    <a type="button" class="btn btn-success" th:href="@{'/cart/add?id=' + ${prod.id}}">add to cart</a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-info" th:href="@{'/shop/' + ${prod.id}}" th:text="#{products.details}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
 
 </div>
